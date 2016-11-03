@@ -4,6 +4,8 @@ namespace Webefficiency\Http;
 use Illuminate\Session\Middleware\StartSession;
 use Webefficiency\Http\Middleware\EncryptCookies;
 use Webefficiency\Http\Middleware\CompanyMiddleware;
+use Webefficiency\Http\Middleware\AdminMiddleware;
+use Webefficiency\Http\Middleware\GroupAdminMiddleware;
 use Webefficiency\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -36,5 +38,7 @@ class Kernel extends HttpKernel
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
         'guest' => 'Webefficiency\Http\Middleware\RedirectIfAuthenticated',
         'company' => CompanyMiddleware::class,
+        'admin' => AdminMiddleware::class,
+        'group_admin' => GroupAdminMiddleware::class,
     ];
 }

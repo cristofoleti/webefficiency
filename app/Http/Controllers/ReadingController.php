@@ -11,22 +11,32 @@ use Webefficiency\Http\Controllers\Controller;
 class ReadingController extends Controller
 {
 
-    public function dashboard($company_id)
+    public function dashboard($company_id, $response = true)
     {
-        $company = Company::findOrFail($company_id);
+		ini_set('memory_limit', '-1');
+        // set_time_limit(300);
+        // ini_set('max_execution_time', 300);
 
-        $readings = $company->readings;
+        $company = Company::where('fieldlogger_id','>',0)->where('fieldlogger_url','<>','')->find($company_id);
+        if($company){
 
-        $data = [];
-        foreach ($readings as $reading) {
-            $data[] = [
-                intval($reading->timestamp),
-                (double) $reading->kw_tr
-            ];
+            $readings = $company->readings()->select('timestamp','kw_tr')->orderBy('timestamp')->get();
+
+            $data = [];
+            foreach ($readings as $reading) {
+                $data[] = [
+                    $reading->timestamp,
+                    (double) $reading->kw_tr
+                ];
+            }
+
+            return ($response) ? response()->json($data) : $data;
+        }else{
+            return response()->json(null);
         }
-
-        return response()->json($data);
     }
+
+
 
     /**
      * Display a listing of the resource.

@@ -26,14 +26,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'is_admin'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token','pivot'];
 
     /**
      * Return related companies
@@ -54,9 +54,26 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
             ->distinct()
             ->join('companies', 'groups.id', '=', 'companies.group_id')
             ->join('company_user', 'companies.id', '=', 'company_user.company_id')
-            ->select(['groups.id', 'groups.name'])
+            ->select(['groups.id', 'groups.name','groups.is_admin'])
             ->where('company_user.user_id', $this->id)
             ->get();
+    }
+
+     /**
+     * Check if user's group has Admin privilegies
+     */
+    public function isGroupAdmin()
+    {   
+        $admin = false;
+        $groups = $this->groups();
+        foreach ($groups as $group){
+            if($group->is_admin) {
+                $admin = true;
+                break;
+            }
+        }
+        return $admin;
+
     }
 
 }
