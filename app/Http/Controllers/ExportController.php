@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Webefficiency\Http\Requests;
 use Illuminate\Database\Eloquent\Collection;
 use Webefficiency\Variable;
+//use Session;
 
 class ExportController extends Controller
 {
@@ -27,7 +28,8 @@ class ExportController extends Controller
         $end_date = Carbon::createFromFormat('Y-m-d', request()->get('end'));
 
         /** @var Company $company */
-        $company = Company::findOrFail(session('default_company'));
+        $default_company = $request->session()->get('default_company');
+        $company = Company::findOrFail($default_company);
 
         /** @var Variable $variable */
         $variable = Variable::findByTag($request->get('tag'));
