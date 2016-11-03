@@ -1,24 +1,14 @@
 <?php
 
-
 namespace Webefficiency\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 use Webefficiency\Http\Requests;
 use Webefficiency\Http\Controllers\Controller;
 
-use Webefficiency\Http\Requests\GroupRequest;
-use Webefficiency\Group;
-
 class GroupsController extends Controller
 {
-    
-    public function __construct() {
-       $this->middleware('group_admin');
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -26,11 +16,7 @@ class GroupsController extends Controller
      */
     public function index()
     {
-        $groups = Group::orderBy('name')->get();
-
-        return view('groups.list', [
-            'groups' => $groups,
-            ]);
+        //
     }
 
     /**
@@ -40,7 +26,7 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        return view('groups.form');
+        //
     }
 
     /**
@@ -48,14 +34,9 @@ class GroupsController extends Controller
      *
      * @return Response
      */
-    public function store(GroupRequest $request)
+    public function store()
     {
-        $obj = Group::create([
-            'name'=>$request->name, 
-            //'active'=>($request->active ? 1 : 0 ),
-            //'is_admin'=>($request->is_admin ? 1 : 0 )
-        ]);
-        return $obj;
+        //
     }
 
     /**
@@ -77,11 +58,7 @@ class GroupsController extends Controller
      */
     public function edit($id)
     {
-        $group = Group::find($id);
-
-        return view('groups.form', [ 
-            'obj' => $group
-        ]);
+        //
     }
 
     /**
@@ -90,16 +67,9 @@ class GroupsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id, GroupRequest $request)
+    public function update($id)
     {
-        $obj = Group::find($id)->update([
-            'name'=>$request->name, 
-            'active'=>1,
-            //'active'=>($request->active ? 1 : 0 ),
-            //'is_admin'=>($request->is_admin ? 1 : 0 )
-        ]);
-
-        return '1';
+        //
     }
 
     /**
@@ -110,7 +80,6 @@ class GroupsController extends Controller
      */
     public function destroy($id)
     {
-        $obj = Group::find($id);
-        $obj->delete();
+        //
     }
 }

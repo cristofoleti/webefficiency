@@ -24,7 +24,7 @@ class ChartsController extends Controller
         $data = [];
         foreach ($readings as $reading) {
             $data[] = [
-                $reading->timestamp,
+                intval($reading->timestamp),
                 (double) $reading->{$tag}
             ];
         }

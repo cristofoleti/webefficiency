@@ -12,7 +12,7 @@ class Company extends Model
      *
      * @var array
      */
-    protected $fillable = ['group_id', 'fieldlogger_id', 'name', 'active', 'is_admin'];
+    protected $fillable = ['group_id', 'fieldlogger_id', 'name', 'active'];
 
     /**
      * @return boolean

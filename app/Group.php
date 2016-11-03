@@ -23,7 +23,5 @@ class Group extends Model
     {
         return $this->hasMany(Company::class);
     }
-    
-      
 
 }
