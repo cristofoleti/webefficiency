@@ -21,6 +21,7 @@
 
   h1,h2,h3,h4 {
     margin-top: 0;
+    float: left;
   }
 
   .modal-content {
@@ -28,6 +29,20 @@
   }
   .modal-close {
     cursor: pointer;
+    float: right
+  }
+
+  .modal-body{
+    clear: both;
+    padding-top: 10px;
+    border-top: solid 1px #ddd;
+
+    
+  }
+  
+  .btn-back{
+    float: right;
+    margin: 6px 0;
   }
 
   .modal-footer {
@@ -40,6 +55,18 @@
     .btn, .btn-flat {
       float: right;
       margin: 6px 0;
+    }
+  }
+
+  .modal-header{
+    display: table;
+    width: 100%;
+    clear: both;
+
+    .modal-title{
+        font-size: 24px;
+        letter-spacing: -1px;
+        margin-bottom: 0;
     }
   }
 }

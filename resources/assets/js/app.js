@@ -15,6 +15,7 @@ $(function () {
         return false;
     });
 
+
     // HighStock Global Options
     Highcharts.setOptions({
         global: {
@@ -62,5 +63,5 @@ $(function () {
         }
     });
 
-});
 
+});
