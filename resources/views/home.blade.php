@@ -4,7 +4,12 @@
     <div class="Chart__wrapper">
         <nav class="range-selector-nav Chart__selector_nav" style="display: none;">
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo">Benchmarking - <span>Índice de Performance da CAG (Kw/Tr)</span></a>
+                <a href="#" class="brand-logo">
+                    <div class="tooltip">
+                        <i><span class="tooltiptext">Comparativo do CAG em todas empresas. Utilize os botões ao lado para ajustar o período.</span></i> 
+                        Benchmarking - <span>Índice de Performance da CAG (Kw/Tr)</span>
+                    </div>
+                </a>
                 <ul id="nav-mobile" class="right">
                     <li>
                         <a href="#" class="range-selector" data-range-type="day" data-range-count="1">1d</a>
@@ -123,23 +128,28 @@
                             }
                         }
                     });
+                    $("nav.range-selector-nav ul li a").trigger("click");
                 };
 
                 var companies = {!! $companies->toJson() !!};
 
                 $.each(companies, function (i, company) {
-
+                    //console.log(company.id+' - '+company.name);
                     $.getJSON("/dashboard/" + company.id, function (data) {
-                        seriesOptions[i] = {
-                            name: company.name,
-                            data: data
-                        };
+                        //console.log(data);
+                        if(data != null && data.length > 0){
+                            seriesOptions.push({
+                                name: company.name,
+                                data: data
+                            });
+                        }
 
-                        seriesCounter += 1;
+                        seriesCounter++;
 
-                        if (seriesCounter === companies.length) {
+                        if (seriesCounter === Object.keys(companies).length) {
                             createChart();
                         }
+                        
                     });
                 });
             });

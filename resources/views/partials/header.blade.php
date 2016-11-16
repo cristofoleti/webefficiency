@@ -1,3 +1,4 @@
+@if(!Auth::guest())
 <header id="header" class="page-topbar">
     <!-- start header nav-->
     <div class="navbar-fixed">
@@ -27,6 +28,13 @@
                             <i class="mdi-action-settings-overscan"></i>
                         </a>
                     </li>
+                    @if(Auth::user()->is_admin == 1)
+                    <li>
+                        <a class="modal-trigger" href="#App__cadastro_modal"
+                           onclick="javascript: {{ Auth::user()->isGroupAdmin() ? 'loadCompanies()' : 'loadUsers()' }}"
+                           >Cadastro</a>
+                    </li>
+                    @endif
                     <li>
                         <a class="modal-trigger" href="#App__change_company_modal">Empresa</a>
                     </li>
@@ -73,3 +81,4 @@
     </div>
     <!-- end header nav-->
 </header>
+@endif

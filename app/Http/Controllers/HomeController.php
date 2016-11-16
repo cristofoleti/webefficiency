@@ -17,7 +17,15 @@ class HomeController extends Controller
     public function index()
     {
         /** @var \Illuminate\Database\Eloquent\Collection $companies */
-        $companies = \Auth::user()->companies;
+        $companies_all = \Auth::user()->companies;
+        $companies = \Auth::user()->companies()->select('id','name')->get();
+        //remove Group Admin companies
+        foreach ($companies_all as $key => $company) {
+            if($company->group->is_admin) {
+                unset($companies_all[$key]);
+                unset($companies[$key]);
+            }
+        }
 
         return view('home', compact('companies'));
     }
